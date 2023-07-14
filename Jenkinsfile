@@ -18,6 +18,7 @@ pipeline {
     stages {
         stage('EnvironmentInfo') {
             steps {
+                echo "Hello"
                 sh 'printenv > envvars.txt'
             }
         }
