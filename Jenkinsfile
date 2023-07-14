@@ -17,6 +17,10 @@ pipeline {
     // the pipeline section we all know and love: stages! :D
     stages {
         stage('EnvironmentInfo') {
+            environment {
+               Myname = "Lokesh"
+            }
+
             steps {
                 echo "Hello"
                 sh 'printenv > envvars.txt'
