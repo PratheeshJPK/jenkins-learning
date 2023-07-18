@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+    }
     // this section configures Jenkins options
     options {
 
@@ -19,12 +21,10 @@ pipeline {
         stage('EnvironmentInfo') {
             environment {
                Myname = "Lokesh"
-                A = credentials("time")
             }
 
             steps {
-                sh ('sleep $A')
-                sh ("sleep $A")
+                 echo "${params.Greeting} World!"
             }
         }
     }
