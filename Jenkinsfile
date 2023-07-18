@@ -24,7 +24,7 @@ pipeline {
 
             steps {
                 echo "Hello"
-                sh 'printenv > envvars.txt'
+                sh 'printenv'
             }
         }
     }
