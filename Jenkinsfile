@@ -22,7 +22,7 @@ pipeline {
             }
 
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dev_creds', passwordVariable: 'DEV_PASS', usernameVariable: 'DEV_USER')]) {
+                withCredentials([usernamePassword(credentialsId: 'dev-creds', passwordVariable: 'DEV_PASS', usernameVariable: 'DEV_USER')]) {
                 // some block
                 echo "Hello"
                 sh 'printenv'
