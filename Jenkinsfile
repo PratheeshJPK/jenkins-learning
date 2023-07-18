@@ -19,6 +19,7 @@ pipeline {
         stage('EnvironmentInfo') {
             environment {
                Myname = "Lokesh"
+               DEV = credentials("dev-creds")
             }
 
             steps {
