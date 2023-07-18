@@ -19,12 +19,18 @@ pipeline {
     // the pipeline section we all know and love: stages! :D
     stages {
         stage('EnvironmentInfo') {
+
+            agent {
+                label "agent1"
+            }
+            
             environment {
                Myname = "Lokesh"
             }
 
             steps {
                  echo "${params.Greeting} World!"
+                sh ('ls')
             }
         }
     }
