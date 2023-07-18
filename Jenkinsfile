@@ -19,12 +19,14 @@ pipeline {
         stage('EnvironmentInfo') {
             environment {
                Myname = "Lokesh"
-               DEV = credentials("dev-creds")
             }
 
             steps {
+                withCredentials([usernamePassword(credentialsId: 'dev_creds', passwordVariable: 'DEV_PASS', usernameVariable: 'DEV_USER')]) {
+                // some block
                 echo "Hello"
                 sh 'printenv'
+                }
             }
         }
     }
