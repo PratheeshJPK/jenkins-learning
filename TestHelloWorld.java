@@ -24,6 +24,7 @@ public class TestHelloWorld {
             System.out.println("Test Passed: Hello, World! was printed successfully.");
         } else {
             System.out.println("Test Failed: Hello, World! was not printed.");
+            System.exit(1);
         }
     }
 }
