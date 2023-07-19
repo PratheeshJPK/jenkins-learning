@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    parameters {
-        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
-    }
+
     // this section configures Jenkins options
     options {
 
@@ -18,19 +16,25 @@ pipeline {
 
     // the pipeline section we all know and love: stages! :D
     stages {
-        stage('EnvironmentInfo') {
+        stage('Build') {
 
-            agent {
-                label "agent1"
-            }
-            
-            environment {
-               Myname = "Lokesh"
-            }
+            agent any
 
             steps {
-                 echo "${params.Greeting} World!"
+                // Build Steps for Sample Java program
+                sh ('javac HelloWord.java')
+                sh('ls')
+                sh('jar cvf HelloWorld.jar HelloWorld.class')
+            }
+        }
+        stage('Test'){
+            agent{
+                label "agent1"
+            }
+            steps{
+                sh ('javac TestHelloWorld.java')
                 sh ('ls')
+                sh ('java -cp HelloWorld.jar;. TestHelloWorld')
             }
         }
     }
