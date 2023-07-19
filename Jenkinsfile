@@ -3,7 +3,10 @@ pipeline {
 
     // this section configures Jenkins options
     options {
-
+        
+        //Skip Default Checkout
+        skipDefaultCheckout(true)
+        
         // only keep 10 logs for no more than 10 days
         buildDiscarder(logRotator(daysToKeepStr: '10', numToKeepStr: '10'))
 
@@ -18,13 +21,16 @@ pipeline {
     stages {
         stage('Build') {
 
-            agent any
-
             steps {
+                cleanWs()
                 // Build Steps for Sample Java program
-                sh ('javac HelloWord.java')
+                git branch: 'dev-main', url: 'https://github.com/PratheeshJPK/jenkins-learning.git'
+                sh('ls')
+                sh ('javac HelloWorld.java')
                 sh('ls')
                 sh('jar cvf HelloWorld.jar HelloWorld.class')
+                sh ('ls')
+                stash includes: '*.jar', name: 'app'
             }
         }
         stage('Test'){
@@ -32,9 +38,15 @@ pipeline {
                 label "agent1"
             }
             steps{
-                sh ('javac TestHelloWorld.java')
+                cleanWs()
+                // Build Steps for Sample Java program
+                git branch: 'dev-main', url: 'https://github.com/PratheeshJPK/jenkins-learning.git'
+                unstash 'app'
                 sh ('ls')
-                sh ('java -cp HelloWorld.jar;. TestHelloWorld')
+                sh ('javac -cp HelloWorld.jar TestHelloWorld.java')
+                sh ('ls')
+                sh ('java -cp HelloWorld.jar:. TestHelloWorld')
+                sh ('ls')
             }
         }
     }
