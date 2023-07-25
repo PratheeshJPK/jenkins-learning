@@ -25,7 +25,7 @@ pipeline {
                 cleanWs()
                 // Build Steps for Sample Java program
                 git branch: 'dev-main', url: 'https://github.com/PratheeshJPK/jenkins-learning.git'
-                sh('ls')
+                sh('printenv')
                 sh ('javac HelloWorld.java')
                 sh('ls')
                 sh('jar cvf HelloWorld.jar HelloWorld.class')
